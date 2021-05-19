@@ -7,6 +7,7 @@
         article p {  
             color: green;
         }
+        /* article 下的所有 p tag */
 
         div p {
             color: red;
@@ -15,6 +16,8 @@
         p {
             color: yellow;
         }
+
+        /* article p 和 div p 的 specificity 一样 */
     </style>
 </head>
 
@@ -31,7 +34,10 @@
         通过CSS明确声明的 > 继承自父级元素 > 浏览器默认的
 
         对于通过CSS明确声明的 CSS Property:
-            使用Important修饰的CSS property > Specificity更高的 > Source order
+            使用Important修饰的CSS property（用 important 强行让它的优先级最高，实际开发中不会用） > Specificity更高的 > Source order （source order 指 后面的会覆盖前面的）
+
+            specificity（优先级）
+            同一优先级，看source order；不同优先级，优先级更高的优先
      -->
 </body>
 
