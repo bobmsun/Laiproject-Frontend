@@ -3,6 +3,7 @@
 
 <head>
     <!-- 写在这里方便演示，大家不要学我 -->
+    <!-- attribute selector 指 根据 attribute 进行选择 -->
     <style>
         /* 
             1. 有class这个attribute
@@ -11,7 +12,8 @@
          */
         /* p[class="font-bold"] {
             color: red;
-        } */
+        }                           */
+        /* class 必须exactly match */
 
         /* 
             1. 有class这个attribute
@@ -25,6 +27,7 @@
         /* a[target] {
             background-color: yellow;
         } */
+        /* 并没有 specify target 的值，所以只有a标签有 targe 属性即可 */
 
         /* a[target="_self"] {
             font-size: 40px;

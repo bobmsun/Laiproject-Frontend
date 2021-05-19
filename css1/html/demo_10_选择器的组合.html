@@ -3,26 +3,40 @@
 
 <head>
     <!-- 写在这里方便演示，大家不要学我 -->
+    <!-- 
+        space: 后代
+        >: 子元素
+        （除了后代和子元素外，还有其他的组合方式）
+    -->
     <style>
         /*  div标签下面所有p标签 */
         /* div p {
             color: red;
         } */
+        /* 这里为后裔，先找 div，然后找 div 包裹的所有 p*/
+
 
         /*  div标签下面p标签子元素 */
         /* div > p {
             color: red;
         } */
+        /* 这里就是子元素，而不是所有后代 */
+        /* 1， 2， 4， 5， 6 */
+
 
         /* .demo选中的标签下面所有p标签 */
         /* .demo p {
             color: red;
         } */
+        /* 先找 .demo class，在找demo 下的 p */
+        /* 1， 2， 3， 4， 7 */
+
 
         /* div.demo选中的标签下面所有p标签 */
-        div.demo p {
+        /* div.demo p {
             color: red;
-        }
+        } */
+        /* 1， 2， 3， 4 */
     </style>
 </head>
 
