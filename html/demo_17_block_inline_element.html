@@ -11,12 +11,13 @@
         他也是作为我们DOM上面的一个Node
         所以有时候叫他一个DOM node, html element, 或者p tag, 都差不太多，嗯，我是这样理解的
     -->
+    <!-- 一个 html element 就是 DOM tree 上的一个 DOM node -->
     <p>This is a paragrah</p>
 
 
     <!-- Inline Element 内联元素 
         1.  不会独占一行 
-        2.  不能设置宽和高
+        2.  不能设置宽和高（width 和 hight 不能调）（但是margin【一个element和一个element时间的距离】 和 padding 【框框和内容之间的距离】还是可以调的）
     -->
     <a href="https://example.com" target="_self">Website</a>
     <a href="https://example.com" target="_self">Website</a>
@@ -26,16 +27,16 @@
         1.  独占一行 
         2.  可以去设置element的宽度和高度
     -->
-    <!-- <div style="height: 50px; width: 50px; background-color: azure;">small box</div>
+    <!-- <div style="height: 50px; width: 50px; background-color: yellow;">small box</div>
     <div style="height: 100px; width: 100px; background-color: cadetblue;">big box<div> -->
 
     <!-- Inline-Block Element  
         1. 不独占一行
         2. 可以设置宽度高度
     -->
-    <!-- <img src="https://www.w3schools.com/tags/smiley.gif" alt="smile">
     <img src="https://www.w3schools.com/tags/smiley.gif" alt="smile">
-    <img style="height: 100px; width: 100px;" src="https://www.w3schools.com/tags/smiley.gif" alt="smile"> -->
+    <img src="https://www.w3schools.com/tags/smiley.gif" alt="smile">
+    <img style="height: 100px; width: 100px;" src="https://www.w3schools.com/tags/smiley.gif" alt="smile">
 
 </body>
 
