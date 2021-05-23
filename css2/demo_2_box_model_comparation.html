@@ -18,11 +18,13 @@
         }
 
         #id_1 {
-            box-sizing: border-box;
+            /* IE */
+            box-sizing: border-box;     /* border + padding+ content 本身 是 300 * 200， 一般来说使用这种 */
         }
 
         #id_2{
-            box-sizing: content-box;
+            /* W3C */
+            box-sizing: content-box;    /* content 本身就是 300 * 200 */
         }
     </style>
 </head>

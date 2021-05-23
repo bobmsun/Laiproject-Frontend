@@ -3,6 +3,7 @@
 
 <head>
     <!-- CSS放在这里为方便演示，大家不要学我 -->
+    <!-- 所谓盒子模型就是，我们把一个一个的 html element 看成一个一个盒子，每个盒子有 margin, border, padding, content -->
     <style>
         div {
             display: flex;
@@ -13,8 +14,8 @@
             height: 200px;
             background-color: #17808a;
             padding: 20px;
-            border: 10px solid #510b53;
-            margin: 30px;
+            border: 10px solid #510b53;      /* 可以理解为，盒子本身的厚度 */
+            margin: 30px;                      /* 盒子与盒子之间的距离 */
         }
     </style>
 </head>
@@ -22,6 +23,8 @@
 <body>
     <!-- 我们买了一个300 * 200 平米的豪宅 -->
     <div>house</div>
+
+    <!-- block element 会左右延伸到浏览器的最大值 -->
 </body>
 
 </html>

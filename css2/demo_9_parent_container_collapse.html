@@ -3,6 +3,7 @@
 
 <head>
     <!-- CSS放在这里为方便演示，大家不要学我 -->
+    <!-- 父级元素塌陷 -->
     <style>
 
         #container {
@@ -26,9 +27,11 @@
         }
 
         /* uncomment to show the issue */
-        #box1, #box2 {
+        /* #box1, #box2 {
             float: left;
-        }
+        } */
+
+        /*box1, box2 浮上去之后，父级元素感受不到两个div 了，所以就塌陷了 */
     </style>
 
 </head>
