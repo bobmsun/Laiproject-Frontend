@@ -4,7 +4,7 @@
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-    <!-- <link href="./css/demo.css" rel="stylesheet"> -->
+    <link href="./css/demo.css" rel="stylesheet">
     <title>Job Recommendation Final</title>
 </head>
 
@@ -34,7 +34,7 @@
                     <i class="fa fa-sitemap fa-2x"></i>
                 </div>
                 <nav class="main-nav">
-                    <a href="#" id="nearby-btn" class="main-nav-btn active">
+                    <a href="#" id="nearby-btn" class="main-nav-btn active">       <!-- a 是inline element，想让它竖直排布，只需把它变成 block element -->
                         <i class="fa fa-map-marker"></i> Nearby
                     </a>
                     <a href="#" id="fav-btn" class="main-nav-btn">
@@ -47,7 +47,7 @@
             </aside>
 
             <ul id="item-list">
-                <li class="item">
+                <li class="item">                 <!-- li 是一个flexbox -->
                     <img alt="job image"
                         src="https://jobs.github.com/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcVZXIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--c2771689af44c596d7935ae1de19a193ac678333/f470d99d-33e6-44f5-ac37-d1237f0a00d1" />
                     <div>
