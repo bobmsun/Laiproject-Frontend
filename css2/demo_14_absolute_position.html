@@ -42,9 +42,11 @@
             top: 10px;
         } */
 
+
         /* case 2 */
+        /* 这里 box1 算是有定位信息的，只是没有偏移量 */
         /* #box1 {
-            position: relative;
+            position: relative;   
         }
         #box3 {
             position: absolute;
@@ -52,13 +54,14 @@
             top: 10px;
         } */
 
+
         /* case 3 */
         /* #box2 {
             position: relative;
         }
         #box3 {
             position: absolute;
-            left: 10px;
+            right: 10px;
             top: 10px;
         } */
     </style>
@@ -78,5 +81,11 @@
         1. 一般父级元素使用相对定位，不给任何偏移
         2. 想定位的元素使用绝对定位，会相对于这个父级元素来定位
     -->
+
+    <!-- relative: 是相对与原先的位置而言 -->
+    <!-- fixed: 是相对与整的 body tag 而言 -->
+    <!-- absolute：相对于父级元素中有定位信息的，如果父级没有就接着往上找; absolute 是相对于父级元素中第一个有定位信息的 进行偏移 -->
+
+    <!-- position 后面 要么跟 fixed，要么跟 relative，要么跟 absolute -->
 
 </html>

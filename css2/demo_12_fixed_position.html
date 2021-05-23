@@ -3,10 +3,16 @@
 
 <head>
     <!-- CSS放在这里为方便演示，大家不要学我 -->
+    <!-- 今天的第一个知识点 float 就讲完了-->
+    <!-- 下面是，今天关于loayout的第二个知识点：position 定位 -->
+    <!-- 四种定位方式 ：（默认，没有任何定位信息），relative（相对定位），absolute（绝对定位），fixed（固定定位）-->
+    <!-- 先从最简单的：固定定位开始讲起 -->
     <style>
         #demo {
             height: 3000px;
         }
+        /* demo div 显示不出来，因为boder 和 backgorund 都是白的 */
+        
         #box1 {
             height: 160px;
             width: 160px;
@@ -18,7 +24,11 @@
         /* uncomment to see  */
         /* #box1 {
             position: fixed;
+            left: 30px;
+            top: 30px;
         } */
+        /* 就定位在这里了，怎么划都不动 */
+        /* (left / right) 和 (top / bottom) 一定是绑定使用的，绑定使用去定位 */
     </style>
 
 </head>

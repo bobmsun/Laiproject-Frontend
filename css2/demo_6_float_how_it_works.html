@@ -4,6 +4,7 @@
 <head>
     <!-- CSS放在这里为方便演示，大家不要学我 -->
     <style>
+        /* float left/right : 让一个元素 左/右 漂浮，既然浮上去了，下面的element（如果是块集元素的话）就会把空位给补上 */
 
         #box1 {
             height: 160px;
@@ -23,6 +24,13 @@
             background-color: rgb(209, 209, 126);
             border: 1px solid rgb(39, 13, 36);
         }
+        #box4 {
+            height: 220px;
+            width: 220px;
+            background-color: rgb(32, 170, 43);
+            border: 1px solid rgb(39, 13, 36);
+        }
+
         /* Tip: 
             1. 这里清晰的演示我把float property分开写了
             2. 问题，我这里写的property会覆盖上面的吗？
@@ -32,7 +40,7 @@
             float: left;
         } */
 
-        /* case 2 */
+        /* case 2 */            /* 就是想用 float 实现一个横向排布，是从左往右排 还是 从右往左排 取决于是 float left 还是 right */
         /* #box1 {
             float: left;
         }
@@ -54,6 +62,16 @@
             float: right;
         } */
         
+
+        /* case 4 重点！！*/
+        /* #box2 {
+            float: left;
+        } */
+
+
+
+
+
         /* Homework */
         /* case 4 */
         /* #box4  {
@@ -77,5 +95,6 @@
     <div id="box1"></div>
     <div id="box2"></div>
     <div id="box3"></div>
+    <div id="box4"></div>
 
 </html>

@@ -26,10 +26,29 @@
             background-color: rgb(209, 209, 126);
             border: 1px solid rgb(39, 13, 36);
         }
+
         /* case 1 */
-        #box1 {
+        /* #box1 {             
+            float: left;
+        } */
+        /* box1 浮起来后，box2向上补气了，因为box2是块集元素 */
+        /* 即使box1 没有文本，box2 的文本也还会被box1卡住 */
+
+        /* case 2 */
+        /* #box1 {             
+            float: right;
+        } */
+
+
+        /* case 3 */
+        /* #box1 {             
             float: left;
         }
+        #box2 {             
+            float: left;
+        } */
+
+
     </style>
 
 </head>
@@ -41,5 +60,8 @@
     -->
     <div id="box1">BOX 1</div>
     <div id="box2">BOX 2</div>
+
+
+    <!-- float 比较复杂，这是一个比较老的工具，至少15年了。不太好用；所以一般用 flexbox，或直接 框架式开发 -->
 
 </html>
