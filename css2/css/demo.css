@@ -113,7 +113,7 @@ ul {
   background: none;
   border-top: 1px solid #FFFFFF;
   color: #FFFFFF;
-  display: block;
+  display: block;              /* 把它变成一个 block element，因为想做一个垂直布局 */
   padding: 20px;
   text-align: left;
   text-decoration: none;
