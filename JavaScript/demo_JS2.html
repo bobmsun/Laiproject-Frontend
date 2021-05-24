@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+    <!-- 今天的主要内容是 DOM 和 BOM -->
+
+    <!-- 浏览器的作用：提供一个平台：做渲染，对JS进行操作，提供JS的运行环境... -->
+    <!-- 浏览器提供的运行环境的图，见教案 -->
+
+    <!-- DOM 文档结构，BOM 浏览器对象，BOM 提供了很多对象（就是API接口，例如通过BOM拿到 Geolocation，实现 Ajax）-->
+
+    <h1>Hello DOM / BOM </h1>
+    <p>this is a paragraph</p>
+
+    <div class="user common">Users:</div>
+    
+    <ul class="box common">
+        <li id="john" class="person">John</li>
+        <li id="peter">Peter</li>
+    </ul>
+
+    
+    <ol id="ol">
+        <li>0</li>
+        <li>1</li>
+        <li>2</li>
+    </ol>
+
+
+
+<script type="text/javascript">
+    // window 的第一个用法：window object -> global object
+    var str = "hello"     // 用 var 定义的变量，是存在window下的
+    console.log(str);
+
+    function fn() {       // fn 也存在window 下
+        console.log(2);
+    }
+    fn()
+    // 也可以
+    window.fn();
+
+    // console 实际上就是在window下的，window.console
+    // 一个窗口（tab）就有一个window
+
+
+    // window 的第2个作用：代表窗口，window object -> represent.browser
+    // 拿到跟页面相关的数据，通过属性和方法，从而操作窗口
+    console.log(window.innerHeight);   // 
+
+    // DOM
+    // DOM 文档对象模型：通过一下API，操作 html 结构
+    // 本质：将html以树状结构呈现
+    // html 可以化成一个树状结构，这颗树就叫 DOM tree
+
+    // 例如：h1 标签是一个标签节点，里边的text也是一个节点，是文本节点；两种类型的节点
+
+    // 怎么访问 DOM 这颗树：通过document这个对象
+    // document 对象是在window对象下的
+
+    // 对DOM的操作，从这几个方面学习：怎么获取（访问）、增加、删除、修改一个节点
+
+    // 重点：通过 JS 访问页面，对页面进行一个操作
+    
+    // 1.1 如何访问 DOM 树？ access DOM tree （访问标签）
+    // 法1：通过 id 去取
+    var john = document.getElementById('john');
+    console.log(john)
+    console.dir(john);     // log 只显示值，dir 表示打印整个结构
+
+    var peter = document.getElementById('peter');
+
+    // 法2: 通过 class name
+    var comBox = document.getElementsByClassName('common');
+    console.log(comBox);         // 得到的是一个 html collection，类似一个 array，但本身不是一个array；array可以 push 新元素，但 collection 不行
+
+    var box0 = document.getElementsByClassName('box');  // 这样做拿不到 box，因为返回的是一个collection，想拿到box需要用下标去获取
+
+    // element.get
+    var box = document.getElementsByClassName('box')[0];
+    var person = box.getElementsByClassName('person')[0];    // 除了 document.getElementsByClassName 还可以 element.getElementsByClassName，但getElementById 不行
+
+    // getElementsByTagName
+    var lis = document.getElementsByTagName("li");    // 拿到两个 li
+
+
+    // querySelector，现在工业界中 querySelector 用的很多
+    var john2 = document.querySelector('#john');  // 后面跟 CSS 的选择器
+
+    var common2 = document.querySelectorAll('.common');
+    console.log(common2);    // 返回的是 node list，也可以通过下标去访问
+
+    var peter2 = document.querySelector('.box .person');    // box class 下的 person class
+
+
+    // 1.2 创建标签 (createElement)
+    var ol = document.getElementById('ol');
+    // 现在想新添加一个 li
+    // 要先建一个新的标签
+    var li = document.createElement('li');   // 括号中根要创建的标签的标签名
+    console.log(li);
+    // 想标签中添加内容
+    li.innerHTML = 'append';
+    // li.innerHTML = '<Strong>append</Storng>'      // innerHTML 可以写一些 html，innerText 不行
+    // li.innerText = 'append';
+    ol.append(li);    // 这样之后就动态显示出来了
+
+    // 例2: 在前面添加
+    var newLi2 = document.createElement('li');
+    newLi2.innerHTML = "prepend";
+    ol.prepend(newLi2);
+
+    // 例3: 也 ol 同层添加
+    ol.before('before');        // 这里添加 text；这里的 “before” 和 “after” 没有任何tag，就是文本，text 本身也是一个节点
+    ol.after("after");
+
+
+
+
+    
+    // 类的增加，属性的增加
+    var oDiv = document.getElementsByTagName('div')[0];
+    oDiv.className = "box";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+</body>
+</html>
+
+
