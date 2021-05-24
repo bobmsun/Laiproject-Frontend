@@ -47,10 +47,10 @@
     // "1" + 1, 会是 “11”
 
     // 2.2 reference -> object, array, function
-    var obj = { name: 'Joe', age: 10 }   // obj.name 比 obj["name"] 慢
-    obj = { "first-name": 'Joe', age: 10 }     // 此时只能 obj["first-name"]
+    var obj = { name: 'Joe', age: 10 }   // obj.name 比 obj["name"] 慢，obj.name 背后也是转化为 obj["name"] 执行
+    obj = { "first-name": 'Joe', age: 10 }     // 此时只能 obj["first-name"], obj.first-name 会报错
 
-    // JS 有一个 JSON.parse()
+    // JS 有一个 JSON.parse()   把一个JSON string parse 成 object
 
     // 其实 array的本质就是对象，array 继承了 Object
     var arr = [1, 'haha', {name: "Joe", age: 10}]    // array 内 element的类型可以不同
@@ -88,6 +88,7 @@
     }
     test(10);
     // typeof test --> "function"
+    cnsole.log(test);       // 会打印出函数体
 
 
     // 第二种方式：函数（匿名）表达式 function expression
@@ -100,12 +101,12 @@
     var result = console.log(myFunc);       // 会打印出函数体
     // typeof myFunc --> "function"    myFunc 这个变量已经变成函数了，通过这个变量就可以找到这个函数
 
-    // JS 中也有类似 lambda的，叫箭头函数，会在 es6 那节课介绍
+    // JS 中也有类似 lambda 的，叫箭头函数，会在 es6 那节课介绍
 
 
     // 3. JS 中两个重要的函数（必须要掌握）
     // IIFE 立即执行函数(immediately invoked function expression)
-    // ()(): 第一个（）中填函数体，第二个（）进行函数的执行
+    // ()(): 第一个（）中填函数体，第二个（）进行函数的执行; 第一个括号内进行函数的定义，第二个函数内进行函数的调用
     // (function(){})()
     (function(){
         var name = "Barry";
@@ -172,7 +173,7 @@
     // 回掉函数 例子1: sort
     var arr = [22, 5, 1];
     arr.sort();
-    console.log(arr)              // [1, 22, 5]
+    console.log(arr)           // [1, 22, 5]， 并没有按照大小sort
 
     arr.sort(function(a, b) {
         return a - b;

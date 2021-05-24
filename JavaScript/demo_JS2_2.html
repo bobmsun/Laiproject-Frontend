@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+    <!-- 今天的主要内容是 DOM 和 BOM -->
+
+    <!-- 浏览器的作用：提供一个平台：做渲染，对JS进行操作，提供JS的运行环境... -->
+    <!-- 浏览器提供的运行环境的图，见教案 -->
+
+    <!-- DOM 文档结构，BOM 浏览器对象，BOM 提供了很多对象（就是API接口，例如通过BOM拿到 Geolocation，实现 Ajax）-->
+
+    <h1>Hello DOM / BOM </h1>
+    <p>this is a paragraph</p>
+
+    <div>this is a div</div>
+
+    <ul class="products">
+        <li data-name="iphone"
+            data-id="001"
+            data-price="600"
+        >Phones</li>
+        <li data-name="samSung"
+            data-id="002"
+            data-price="500"
+        >SamSung</li>
+        <li data-name="pixel"
+            data-id="003"
+            data-price="550"
+        >Pixel</li>
+    </ul>
+
+
+    <ul id="box"></ul>
+
+
+<script type="text/javascript">
+
+    // 类的增加，属性的增加
+    var oDiv = document.getElementsByTagName('div')[0];
+    oDiv.className = "box";                    // 修改稿property
+    // oDiv.setAttribute('class', 'common');        // （会覆盖前边的）通过调用API
+    // oDiv.className = "box common";         // 一下增加两个类 
+    // oDiv.classList.add('common');      // （不想覆盖）再添加一个类
+    // oDiv.className += ' common';       // （不想覆盖）再添加一个类，法2；一定要有空格
+
+    // 增加 id
+    oDiv.id = "haha";
+
+
+    // 修改CSS style
+    oDiv.style.color = 'red';
+    // 对 CSS 样式的修改，都是放在 style 下
+
+
+    // data 杠 属性 - 对标签添加自定义属性，目前学的标签的属性都是固定的
+    // 如何使用 data-* 属性：2 步
+    // step 1: how to define: tag -> data-*
+    // step 2: how to use
+    // js -> dataset
+
+    var oLis = document.getElementsByTagName('li');
+    for (var i = 0; i < oLis.length; i++) {
+        console.log(oLis[i].dataset);           // dataset 属性
+    }
+
+    var totalPrice = 0;
+    for (var i = 0; i < oLis.length; i++) {
+        totalPrice += +oLis[i].dataset.price;     // 前面加一个 + 就把string 转化为 number了
+    }
+
+    // data-* 属性是 html5新加的内容
+    // 我的 project 中用到这点了
+
+
+
+    // DOM 讲完了，下面讲 BOM
+    // BOM 下有很多内容，我们今天只讲 navigator，之后会讲 XMLHttpRequest，其他的内容可以去 MDN 的官网上看
+    // navigator 本身是一个对象，他是 window 对象下的一个属性，并且 navigator 是 read-only 的，只能读取，不能修改
+    // navigator 可以给我们位置信息，经纬度
+    // navigator 的 geolocatin 对象 是我们今天要学的多，window 对象下的 navigator对象（window.navigator）下的  geolocation对象下，有一个 function
+    // 叫 getCurrentPosition 可以给我们经纬度
+
+    // 先拿到 Geolocation 对象
+    if (navigator.geolocation) {       // 先看看是否有 geolocation 这个对象
+        console.log(navigator.geolocation.getCurrentPosition)         // 是 native code，看不到源码
+        navigator.geolocation.getCurrentPosition(function(position) {        // 成功时调用的回掉函数
+            console.log('position => ', position);
+            var coords = position.coords;                        // 电脑所在地的经纬度
+            console.log('lat -> ', coords.latitude)
+            console.log('lon -> ', coords.longitude)
+        }, function(err) {                                        // 失败时调用的回掉函数
+            console.log('error => ', err);
+        }, {
+            maximumAge: 1000
+        })
+    }
+    
+
+    // 今天的课程就到这里，下面做一个小的practice
+    // server gives an array -> arr = ['apple', 'cherry', 'berry']
+    // frontend display
+    var arr = ['apple', 'cherry', 'berry']
+
+    // find hook, 找到钩子;
+    // 钩子：就是值数据插入的地方法院
+    var oUl = document.getElementById('box');
+
+    // iterate array, create li element + data
+    // 逐条的 element 创建
+    for (var i = 0; i < arr.length; i++) {
+        var oLi = document.createElement('li');
+        oLi.className = 'item';
+        oLi.id = arr[i];
+        oLi.innerHTML = arr[i];
+        // 每创建一个 li 就要挂到 钩子处
+        oUl.append(oLi);
+    }
+    // 以上就是 前后端交互数据，数据在前端显示的过程；
+
+
+    // 封装
+    // function create(tag, optional) {
+    //     return <li class="" id=""></id>
+    // }
+
+    function $create(tag, option) {   // (我要创建的标签， 这个标签需要具有的属性)
+        var ele = document.createElement(tag);
+
+        for (var key in optionas) {
+            if (options.hasOwnProperty(key)) {
+                ele[key] = options[key];
+            }
+        }
+
+        return ele;
+    }
+
+
+    // var obj = {a : 1, b : 2}
+    // 'a' in obj             // ture, 不光 check obj 自己是否有这个 property，还check 父类是否有这个 property
+    // obj.hasOwnProperty('a');   // true, 只判断obj 是否有 a 这个属性
+
+
+    // for (var i = 0; i < arr.length; i++) {
+    //     var oLi = $create('li', {
+    //         className: 'item',
+    //         id: arr[i]
+    //     })
+    //     oUl.append(oLi);
+    // }
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+</body>
+</html>
+
+
