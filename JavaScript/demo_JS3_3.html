@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+    
+        .box {
+            position: relative;          /* 父“相”子“绝” */
+            height: 300px;
+            width: 300px;
+            background-color: #ccc;
+        }
+
+        .apply {
+            position: absolute;    /* absolute 定位：如果一值找不到有定位的父级，就相对于body */
+            bottom: 20px;
+            right: 10px;
+            height: 30px;
+            width: 80px;
+            background-color: #23b6ff;
+            text-align: center;
+            line-height: 30px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Event</h1>
+
+    <div class='box'>
+        course introduction
+        <div class="apply"> Apply</div>
+    </div>
+
+
+    <h1>Hello Ajax</h1>
+
+    <button>click me</button>
+    
+
+<script>
+    // 如何组织冒泡 或 捕获
+    var oBox = document.getElementsByClassName('box')[0],
+        oApply = document.getElementsByClassName('apply')[0];
+
+    oBox.addEventListener('click', function(e){
+        console.log('course');
+        e.stopPropagation(); 
+    }, false)
+
+    oApply.addEventListener('click', function(e){
+        console.log('apply');
+        e.stopPropagation();         // event 对象下的 stopProgation()
+    }, false)
+
+
+    // 事件 就讲完了，接下来讲 Ajax
+
+    // 之前，前后端的数据传输格式用 xml，现在不只有 xml了，都用 json
+    // Ajax 支持 JS 和 xml
+    // css -> link 标签 
+    // JS -> script, src
+    // image, src -> 
+
+    // 同步
+    // 点击连接 -> 向 server端 发送请求 -> 在此期间，我们不能在页面上做任何操作，只能等待，知道请求的数据返回页面 -> 返回的是一个新的页面，reload 整个页面
+
+    // 我们想，
+    // 只接受数据，不是页面；
+    // 不刷新当前页面；
+    // 显示数据，页面局部改变，而不是全部改变；
+    // 不返回整个 php 页面
+
+    // Ajax 的例子：Google map 的数据变化，根据所选地的变化而变化，Google map 不可能一开始就把所有 data 都下载下来
+
+    // Ajax 不是一门语言，是一种技术
+
+    var url = 'http://petstore.swagger.io/v2/swagger.json';
+
+    // step1: create
+    // 创建一个对象，BOM 提供的
+    // 这个对象帮我们实现了 Ajax 这这技术
+    var xhr = new XMLHttpRequest();   // 这个对象中有很多方法，我们可以使用
+
+    // step2: config
+    // url method async/sync
+    xhr.open('GET', url, true);       // ture: 使用异步通信，不会阻止当前任务的执行
+
+    // step3: send
+    xhr.send();
+
+    // step4: listen 监听
+    // request + response
+    // onload 这个函数的执行条件是在 request成功的时候，request成功的时候 执行 onload
+
+    // request
+    xhr.onload = function() {
+        // response
+        console.log(xhr.status);
+        if (xhr.status == 200) {
+            // get data
+            console.log(xhr.responseText);    // data 储存在 xhr.responseText，xhr.responseText 是 text
+
+            var data = JSON.parse(xhr.responseText);   // 转化成 JSON object
+            console.log(data);
+
+            var h1 = document.getElementsByTagName('h1')[0];
+            var btn = document.getElementsByTagName('button')[0];
+
+            btn.addEventListener('click', function() {         // click 之后会发现，url不会发生变化
+                var h2 = document.createElement('h2');
+                h2.innerHTML = data.swagger;
+                h1.append(h2);
+            }, false)
+            // h1.innerHTML = data.swagger;
+        }
+    }
+
+    // Http request 或 response 有 error 时，触发这个函数，onerror 就是来进行错误捕获的
+    xhr.onerror = function(){
+        console.log('error');
+    }
+
+    // 4 步完成一个 Ajax call：
+    // create，config，send（发送），listen（监听）
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+
+
+</html>

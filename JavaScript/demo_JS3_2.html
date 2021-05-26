@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        div {
+            border: 1px solid #ccc;
+        }
+
+        .a {
+            height: 400px;
+            width: 400px;
+            background-color: lightgray;
+        }
+
+        .b {
+            height: 200px;
+            width: 200px;
+            background-color: lightpink;
+            margin-left: 400px;
+        }
+
+        .c {
+            height: 100px;
+            width: 100px;
+            background-color: lightblue;
+            margin-left: 200px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Event</h1>
+
+    <div class='a'>
+        <div class='b'>
+            <div class='c'>
+            </div>
+        </div>
+    </div>
+    
+
+
+<script>
+
+    // 冒泡 & 捕获
+    // 要满足两个必要条件：
+    // 1. 绑定的是相同事件
+    // 2. 有层级关系
+    var oA = document.getElementsByClassName('a')[0];
+    var oB = document.getElementsByClassName('b')[0];
+    var oC = document.getElementsByClassName('c')[0];
+
+    // 例1: 冒泡          c, b, a
+    // oA.addEventListener('click', function(){
+    //     console.log('a...');
+    // }, false);
+
+    // oB.addEventListener('click', function(){
+    //     console.log('b...');
+    // }, false);
+
+    // oC.addEventListener('click', function(){
+    //     console.log('c...');
+    // }, false);
+
+
+    // 例2：捕获           a, b, c
+    // oA.addEventListener('click', function(){
+    //     console.log('a...');
+    // }, true);
+
+    // oB.addEventListener('click', function(){
+    //     console.log('b...');
+    // }, true);
+
+    // oC.addEventListener('click', function(){
+    //     console.log('c...');
+    // }, true);
+
+    // false 是冒泡，true 是capture
+
+
+    // 既定义捕获阶段，又定义冒泡阶段：先捕获，再冒泡； a, b, c, c, b, a
+    // oA.addEventListener('click', function(){
+    //     console.log('a b...');
+    // }, false);
+
+    // oB.addEventListener('click', function(){
+    //     console.log('b b...');
+    // }, false);
+
+    // oC.addEventListener('click', function(){
+    //     console.log('c b...');
+    // }, false);
+
+    // oA.addEventListener('click', function(){
+    //     console.log('a c...');
+    // }, true);
+
+    // oB.addEventListener('click', function(){
+    //     console.log('b c...');
+    // }, true);
+
+    // oC.addEventListener('click', function(){
+    //     console.log('c c...');
+    // }, true);
+
+    // 在触发地（在 target 阶段）：没有 捕获或冒泡，执行的顺序由代码顺序决定
+
+
+    // 点击 b，会得到：aa c, a b; 
+    // b 没有绑定事件，就是没有事件处理函数，但是事件本身是存在的
+    oA.addEventListener('click', function(){
+        console.log('a b...');
+    }, false);
+
+    oC.addEventListener('click', function(){
+        console.log('c b...');
+    }, false);
+
+    oA.addEventListener('click', function(){
+        console.log('a c...');
+    }, true);
+
+    oC.addEventListener('click', function(){
+        console.log('c c...');
+    }, true);
+
+    
+
+
+
+
+
+
+
+</script>
+
+</body>
+
+
+</html>
