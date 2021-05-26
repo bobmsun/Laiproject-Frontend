@@ -110,10 +110,11 @@
     //     console.log('c c...');
     // }, true);
 
+
     // 在触发地（在 target 阶段）：没有 捕获或冒泡，执行的顺序由代码顺序决定
 
 
-    // 点击 b，会得到：aa c, a b; 
+    // 点击 b，会得到：a c, a b; 
     // b 没有绑定事件，就是没有事件处理函数，但是事件本身是存在的
     oA.addEventListener('click', function(){
         console.log('a b...');
@@ -130,10 +131,9 @@
     oC.addEventListener('click', function(){
         console.log('c c...');
     }, true);
+    // 以上，点击 c，会得到：a c, c c, c b, a b; 
 
     
-
-
 
 
 
