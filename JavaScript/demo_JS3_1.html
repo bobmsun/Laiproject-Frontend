@@ -30,7 +30,7 @@
     var obj1 = new Object();   // 创建一个空对象， Object() 是构造函数
     // 之后可以往里加属性
 
-    var obj2 = {a: 1, b: 2}    // 其实是调用了 Object 的构造函数 new Object()，然后往里加了属性
+    var obj2 = {a: 1, b: 2}    // 只一句其实包含了两句，是先调用了 Object 的构造函数 new Object()，然后往里加了属性
 
     'toString' in obj2     // true, toString 是从原型链上继承先来的
     'a' in obj2           // true, 'a' 是 obj2 自己的属性
@@ -41,12 +41,13 @@
 
     // 今天内容：JS中的event 和 AJAX 
 
-    // JS中的event: click, double click, mouser over, hover, mouse down
-    // 时间的反馈：通过韩式来实现，做了这些时间之后的效果
+    // JS中的event: click, double click, mouser over, hover, mouse down, ...
+    // 所有事件都是 JS 已经定义好了的
+    // 事件的反馈：通过函数来实现；通过函数来定义，做了这些事件之后的效果
 
     var oDiv = document.getElementsByTagName('div')[0];
-    // oDiv.onclick = function () {                // 时间天生存在，我们要做的是 绑定事件凡奎，绑定事件处理函数；事件处理函数中，定义事件发生的效果；
-    //     console.log('click');                 // 事件出发后，要做什么事
+    // oDiv.onclick = function () {              // 事件天生存在，我们要做的是 绑定事件反馈，绑定事件处理函数；事件处理函数中，定义事件发生的效果；
+    //     console.log('click');                 // 事件触发后，要做什么事
     //     oDiv.style.backgroundColor = 'pink';
     // }
 
@@ -54,8 +55,8 @@
 
 
 
-    // how to bind events -> 2 ways
-    // 一个标签有哪些事件，在JS当总已经是被定义好的，我们做的只是增加时间的反馈
+    // how to bind events 如何绑定事件反馈 -> 2 ways
+    // 一个标签有哪些事件，在JS当中已经是被定义好的，我们做的只是增加事件的反馈
 
     // 1 -> 第1种绑定事件的方法：on + event-name
     var oDiv = document.getElementsByTagName('div')[0];
@@ -64,7 +65,7 @@
     //     oDiv.style.backgroundColor = 'pink';
     // }
     // 事件被触发时才执行处理函数，并不是一上来刷新页面时就执行函数
-    // on 必须要有，表示进行时间绑定；click 是事件名，偶哪些事件名 可以去官网上查
+    // on 必须要有，表示进行事件绑定；click 是事件名，有哪些事件名 可以去 MDN 官网上查
     
     // oDiv.onmouseover = function() {
     //     console.log('mouseover');
@@ -82,27 +83,29 @@
 
     // 2 -> 第2种绑定事件的方法：addEventListener
     // addEventListener 这个函数是继承与 event Target
+    // addEventListener 有三个参数：(“事件名”，事件反馈函数，true/false(表示冒泡/捕获))
     oDiv.addEventListener('click', function(){
-        // 杜预事件的处理，要写在这个回掉函数中
+        // 对于事件的处理，要写在这个回掉函数中
         console.log(3);
         oDiv.style.backgroundColor = 'pink';
     }, false);
 
-    // 如果用 addEventListener 的方法对 同一时间 进行重复绑定，不会覆盖前面的，而是两个反馈都会执行
+    // 如果用 addEventListener 的方法对 同一事件 进行重复绑定，不会覆盖前面的，而是两个反馈都会执行
     oDiv.addEventListener('click', function(){
         console.log(4);
         oDiv.style.backgroundColor = 'orange';
     }, false);
 
-    // true / false 是时间的冒泡 或 捕获
+    // true / false 是事件的冒泡 或 捕获
 
 
     // 3 -> 第3种绑定事件的方法：在标签上进行 on + event 的绑定
+    // 见上面标签
 
 
-    // JS 如何能够认识 htlm 中的结构？ 通过妆化为 DOM tree 的方式
+    // JS 如何能够认识 htlm 中的结构？  通过转化为 DOM tree 的方式
 
-    // 元素天生具有事件属性
+    // 元素(element)天生具有事件属性
 
 
 
