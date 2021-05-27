@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        .box {
+            position: relative;          /* 父“相”子“绝”：用 absolute 时，一般父类给一个 relative */
+            height: 300px;
+            width: 300px;
+            background-color: #ccc;
+        }
+
+        .apply {
+            position: absolute;       /* absolute 定位：如果一直找不到有定位的父级，就相对于body */
+            bottom: 20px;
+            right: 10px;
+            height: 30px;
+            width: 80px;
+            background-color: #23b6ff;
+            text-align: center;
+            line-height: 30px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Event</h1>
+
+    <div class='box'>
+        course introduction
+        <div class="apply"> Apply</div>
+    </div>
+
+
+    <h1>Hello Ajax</h1>
+
+    <button>click me</button>
+    
+
+<script>
+    // 我们这个项目用的是spring 框架，spring 框架中，前端代码是写在 webapp folder 下的
+
+    // Ajax 的封装，把Ajax 封装到函数中
+    // method: 要发送 get 还是 post
+    // data：向后端请求时需要携带的data
+    function ajax(method, url, data, successCb, errorCb) {
+        // step1: create an instance of objext
+        var xhr = new XMLHttpRequest();
+
+        // setp2: config
+        xhr.open(method, url, true);
+
+        // step3: send
+        if (data === null) {
+            xhr.send();
+        } else {
+            xhr.setRequestHeader("content-type", "application/json;charset=utf-8");   // utf-8 是可以发送中文的
+            xhr.send(data);         // data: 前后端通信时需要的data，例如登陆时可以把 用户名、密码 传进去
+        }
+
+        // strp4: listen
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                successCb(xhr.responseText);       // 需要这个 callback function 在 success 时把收到的结果返出来
+            }
+        }
+        
+        xhr.onerror = function() {
+            console.log("something wrong");
+            errorCb();
+        }
+    }
+
+    var url = 'http://petstore.swagger.io/v2/swagger.json';
+
+    ajax('GET', url, null, function(data){
+        // console.log(data);
+        var obj = JSON.parse(data);
+        console.log(obj);
+    }, function(){
+        console.log('error');
+    });
+
+
+
+
+
+
+
+</script>
+
+</body>
+
+
+</html>
