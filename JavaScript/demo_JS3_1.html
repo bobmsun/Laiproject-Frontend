@@ -30,7 +30,7 @@
     var obj1 = new Object();   // 创建一个空对象， Object() 是构造函数
     // 之后可以往里加属性
 
-    var obj2 = {a: 1, b: 2}    // 只一句其实包含了两句，是先调用了 Object 的构造函数 new Object()，然后往里加了属性
+    var obj2 = {a: 1, b: 2}    // 这一句其实包含了两句，是先调用了 Object 的构造函数 new Object()，然后往里加了属性
 
     'toString' in obj2     // true, toString 是从原型链上继承先来的
     'a' in obj2           // true, 'a' 是 obj2 自己的属性
@@ -82,7 +82,7 @@
     // }
 
     // 2 -> 第2种绑定事件的方法：addEventListener
-    // addEventListener 这个函数是继承与 event Target
+    // addEventListener 这个函数是继承于 event Target
     // addEventListener 有三个参数：(“事件名”，事件反馈函数，true/false(表示冒泡/捕获))
     oDiv.addEventListener('click', function(){
         // 对于事件的处理，要写在这个回掉函数中
