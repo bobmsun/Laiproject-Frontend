@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Title</title>
+</head>
+
+<body>
+    <h1>Hello ES6</h1>
+
+    <script type="text/javascript">
+        console.log(2);
+
+        let a = () => {
+            return 1;
+        }
+
+        console.log(a);
+    </script>
+
+
+    <script type="text/babel">        // 用Babel时，script 标签下必须写babel，不能再写 text/javascript
+        console.log(2);
+
+        let a = () => {
+            return 1;
+        }
+
+        console.log(a);
+    </script>
+
+    <!-- 所以 在Standalone 模式下， Babel 的 引入分两步：引入库，在script 标签上说明 Babel，缺一不可 -->
+</body>
+
+</html>

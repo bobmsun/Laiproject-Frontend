@@ -1,0 +1,29 @@
+React 用的是 JSX 语法 和 ES6 语法
+
+JS vs ECMAscript 6 vs ES6
+ECMA (European Computer Manufacture Association)
+
+ECMAscript 6 就是 JS 的一个版本 （2015 年发布的）
+ECMAscript 2016
+ECMAscript 2017
+ECMAscript 2018
+...
+
+ES6 就是 ECMAscript 6 的缩写
+之前学的 JS 都是 ES5
+
+脚本语言（例如 JS）：一边解释，一边执行；不需要先编译（不需要像 Java 一样先编译成 .class 文件）
+
+React 是基于 ES 6 开发的
+
+JS 的运行环境是 browser
+
+JS 的用户基数非常大
+
+要用 babel 去解析 ES6 的代码，帮我们把 ES6 的语法转化成了 ES5 的语法 -> 从而保证任何浏览器都能兼容
+babel 实际上是一个库
+
+ES6 有很多新 feature ES5 不具备
+
+Standalone 模式：
+直接讲库引入到 html 文件当中

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Title</title>
+</head>
+<body>
+    <h1>Hello ES6</h1>
+
+    <script type="text/babel">
+
+        var a = 0;
+        var a = 1;  // ES5 中 var 可以重复定义，会覆盖前面的值
+        // 变量污染了，ES5 中怎么解决的？
+        
+        // ES5 中用 IIFE 做作用域的隔离
+        var b = 20;
+        (function(){
+            var b = 'haha';
+            console.log(b);    // haha
+        })()
+        console.log(b);      // 20
+        // 立即执行函数声称了一个作用域
+
+
+        // ES6 -> block scope 块级作用域，隔离了自己的空间，用花括号隔离出来的
+        // ES5 中有两种 作用域 scope -> global 全剧作用域  和   function (local) 函数作用域
+        // ES6 中又多了一种 {} -> block  块级作用域   (花括号隔离出来的就是一个块级作用域)
+
+        if (2 > 1) {
+            console.log(3);
+        }
+
+        for (var i = 0; i < 2; i++) {
+            console.log(i)
+        }
+
+        {
+            let a = 10;
+        }
+
+
+
+
+
+
+        // let 和 const
+        // let （let和var不是变量类型，都是变量的声明）
+        // global 全局作用域
+        // let b = 1;
+        // let b = 2;              // 报错
+        // console.log(b);
+
+        // function 函数作用域
+        function fn(){
+            var a = 1;
+            var a = 2;
+            console.log(a);
+        
+            let b = 10;
+            // let b = 20;           // 报错，同上的错误，重复定义
+            console.log(b);
+        }
+        // 如果再有一个function fn2 中 定义 let b, 是 ok 的
+
+        // 以上说明：  1. 同一作用域下，let不能被重复声明，let cannot be declared more than once
+
+        var aa = 10;
+        {
+            let bb = 20; 
+            var cc = 30;
+        }
+        function fn2() {
+            console.log(aa);    // 可以访问 aa
+            console.log(bb);    // 不能访问 bb
+            console.log(cc);    // 可以访问 cc
+        }
+        fn2()
+
+        // var 是之前ES5的东西，let是ES6的
+
+
+
+
+
+        // 2. let定义的变量只能在当前的块级作用域下生效
+        // {
+        //     let a = 10;
+        //     console.log(a);      // 可以打印
+        // }
+        // console.log(a);      // 出了这个块级作用域就不可以访问了
+
+        // var 的弊端
+        // for (var i = 0; i < 3; i++) {
+        //     console.log(i);
+        // }
+        // console.log(i);        // 对于 var 定义的变量，出了这个 for 循环仍然可以被访问到
+        // var 定义的变量没有块级的概念
+
+        // 以上相当于
+        // var i = 0
+        // for (; i < 3; i++) {
+        //     console.log(i);
+        // }
+        // console.log(i);
+
+        // for (let j = 0; j < 3; j++) {
+        //     console.log(j);
+        // }
+        // console.log(j);        // 对于 let 定义的变量，出了这个 for 循环就不能被访问到；因为 let 只在当前作用域中生效
+
+
+
+
+        
+
+        // const 用来进行常量定义
+        // const：定义了之后就不能改；且 声明了就要立马定义 const b; 不行
+        // const abc = 123;
+        // abc = "haha";          // 不行
+
+        // const 和 let一样，有一个块级作用域的概念
+        // {
+        //     const a = 1;
+        //     console.log(a);
+        // }
+        // console.log(a);      // a 不能被访问
+
+
+
+
+
+
+        // Destructuring 解构（结构分两大块：array的解构 和 object的解构），实际上是赋值操作，ES6的语法，让写代码方便了许多
+        // var arr = [1, 2, 3];
+        // let [a, b, c] = [1, 2, 3];     // 解构 就相当于一个赋值操作
+        // a 就是 1 了，b 就是 2 了，c 就是 3 了
+
+        // let [a, b, c, d] = [1, 2, 3];
+        // d 就是 undefined
+
+        // var obj = {name: 'Joe', age: 10};
+        // var {name, age} = {name: 'Joe', age: 10};  // 花括号表示对object的解构  // 变量名和属性名相同时，可以简写成这样，只写一个变量名
+        // var {name: nameValue, age: ageValue} = {name: 'Joe', age: 10};
+        // nameValue 就是 'Joe' 了，ageValue 就是 10 了
+
+        // 等号两边类型必须匹配，是数组就都是数组，是 obj 就都是 obj
+
+
+
+
+
+
+        // 函数中参数的解构
+        // function fn([a, b]){
+        //     console.log(a + b);
+        // }
+        // fn([1, 2]);           // 3        // array 的解构（只不过，这个array是函数的参数）
+        // fn([1, 2, 3, 4, 5, 6, 7]);        // 3
+        // fn([1])          // NaN  not a number
+
+        // let obj = {'a' : 1, 'b': 2};
+        // let {'a': x, 'b': y} = obj;
+
+
+
+
+
+        
+
+        // 默认值（一下把 es5 和 es6 做一个对比）
+        // ES5 中想用默认值的用法
+        // function fn(x, y) {
+        //     var a = x || 0;            // 如果x存在，就取x，否则为0
+        //     var b = y || 0;
+        //     console.log(a + b);
+        // }
+        // fn();         // 0
+        // fn(2, 6);     // 8
+
+        // ES6 中想用默认值的用法
+        // function fn1(x = 1, y = 2) {
+        //     console.log(x + y);
+        // }
+        // fn1();                   // 3
+        // fn1(10);                 // 12
+        // fn1(10, 20);             // 30
+        // fn1(undefined, 10)       // 11
+
+        // JS 中 undefined 是一个特殊的 value
+
+
+
+
+
+
+
+
+        // ... 点点点 操作赋
+        // 2 cases（两种用途）: 收集 (rest) 和 扩展 (spread)
+
+        // case 1: spread 扩展（相当于一个for循环的操作）
+        // let arr = [1, 2, 3];
+        // let arr1 = [...arr, 4, 5];
+
+        // ... 可以用来做克隆，但是是浅克隆
+        // let arr = [1, [1, 2, [3, 5, 7]], 3];
+        // let arr2 = [...arr];
+        // arr2[1] 只是拷贝了一个 reference  (array 是 reference type)
+
+        // object
+        // let obj1 = {a: 1, b: 2};
+        // let obj2 = {...obj1, c: 3};            // 这种用法 React 中非常多
+
+
+        // case 2: rest
+        // function fn(...args){
+        //     console.log(args);                 // 会打印一个 array，因为传入的所有参数会被收集成了一个array
+        //     let sum = 0;
+        //     for (let i = 0; i < args.length; i++){
+        //         sum += args[i];
+        //     }
+        //     console.log(sum);
+        // }
+        // fn(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);     // 参入参数的数量可以是动态的；如果不知道会传入几个参数，就可以用 ...args
+
+
+
+
+
+
+
+
+
+        // 箭头函数 array function
+        // () => {}
+
+        // 普通function expression
+        // var f = function(a, b){
+        //     a++;
+        //     return a + b;
+        // }
+        // console.log(f(1, 5));
+        
+        // 箭头函数
+        // var f1 = (a, b) => {
+        //     a++;
+        //     return a + b;
+        // }
+        // console.log(f1(2, 12));
+
+        // 箭头函数有几种特殊情况
+        // case1: 当函数只有一条return语句时，可以省略花括号 和 return 关键字       fn body only one return
+        // var f2 = (a, b) => { return a + b}
+        // var f3 = (a, b) => a + b;                    // 花括号可以简写
+
+        // case2: 函数参数只有一个时，小括号可以省略               fn parameter -> only 1 parameter
+        // var f4 = (a) => {
+        //     a++;
+        //     return a + 10;
+        // }
+        // var f5 = a => {           // 括号可以简写
+        //     a++;
+        //     return a + 10;
+        // }
+
+        // case3: case1 + case2 （1 parameter + 1 return，小括号 和 花括号 都可以省略了）
+        // var f6 = a => a + 1;
+        // console.log(f6(20));   // 21
+
+        // 箭头函数 和 普通函数 各自有各自的特点，各自有各自的弊端
+
+        // arguments 是普通函数附赠给我们的一个对象，在函数体里可以拿到这个对象，箭头函数中是没有arguments对象的
+        // function test(){
+        //     console.log(arguments);            // argument 可以用来收集传入的参数
+        // }
+        // test(1, 2);
+        // 箭头函数是没有 argument 这个对象的，箭头函数中想收集参数，就只能用 ...args 了
+
+        // this 是 一个keyword     this -> keyword
+        // fn internal object
+        // this -> fn runtime environment    this 指向的是函数的 environment
+        // function test(){
+        //     console.log(this);    // 严格模式下，this 是undefined；非严格模式下，this 指向 window
+        // }
+        //
+        // var obj = {
+        //     a: 10,
+        //     fn: test     // test 代表 function body
+        // }
+        //
+        // var obj1 = {
+        //     a: 20,
+        //     fn: test
+        // }
+        //
+        // test();
+        //
+        // obj.fn();            // this 指向了 obj
+        // obj1.fn();           // this 指向了 obj1
+
+        // 函数的 this 指向：
+        // 1. 直接 call 函数（如果是函数的直接调用）：
+        //      严格模式下：是 undefined
+        //      非严格模式下：指向 window
+        // 2. 对象去调用函数：指向调用它的对象
+
+        // 可以改变 this 的指向，后面讲
+
+
+        // arrow function: this
+        // function test(){
+        //     console.log('fn -> ', this);
+        //
+        //     const run = () => {
+        //         console.log('run -> ', this);
+        //     }
+        //
+        //     run();
+        // }
+        // （这里的code没抄完）
+        // 箭头函数自己没有this，this指向 父级函数 的this，如果没有 父级函数，this就是undefined
+        // “箭头函数的this指针由父级函数决定” 这是一个好处，至于你为什么好，后面讲
+        
+
+
+
+
+
+
+
+        // String Template
+        // var str1 = "hello";
+        // var str2 = "react";
+        // var str3 = "haha";
+        // var str = str1 + ' ' + str2 + ' ' + str3 + '!';           // string 的拼接
+
+        // ES6 中有了 string template （注意：这里用的是反引号）
+        // var newStr = `${str1}, ${str2}, ${str3}!`;            // hello, react, haha!
+
+
+
+
+
+
+
+        // ES5 中构造类是通过 构造函数 和 原型链 来构造的，比较复杂，ES6 中有了 class
+        // Class
+        // Class 是一个关键字，通过class可以来定义类
+        // class Person {
+        //     constructor(name, age){
+        //         this.name = name;
+        //         this.age = age;
+        //         console.log(this.age, this.name);
+        //     }
+               
+            // 给类添加函数
+            // sayHello(){
+                // console.log(`My name is ${this.name}, I am ${this.age}!`);
+            // }
+        // }
+
+        // 用 new 来进行类的实例化
+        // var person = new Person('Joe', 10);
+
+
+        // 类的继承：关键字是 extends
+        // class Student extends Person{
+        //     constructor(name, age, hobby){
+        //         super(name, age);            // 在子类的constructor中，可以用 super 来调用父类中的 constructor 从而建立父类中的field
+        //         this.hobby = hobby;          // 还可以加一些自己特有的
+        //     }
+        //     goToSchool(){
+        //         console.log(`My name is ${this.name}, I am ${this.age}!`);
+        //     }
+        // }
+        // var Joe = new Student('Joe', 10, 'running');
+        // Joe.goToSchool();
+
+
+        // 写 React componenet 时必须要会 extends
+
+
+    </script>
+
+</body>
+</html>
