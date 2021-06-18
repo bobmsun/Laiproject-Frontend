@@ -25,7 +25,7 @@
 
 
         // ES6 -> block scope 块级作用域，隔离了自己的空间，用花括号隔离出来的
-        // ES5 中有两种 作用域 scope -> global 全剧作用域  和   function (local) 函数作用域
+        // ES5 中有两种 作用域 scope -> global 全局作用域  和   function (local) 函数作用域
         // ES6 中又多了一种 {} -> block  块级作用域   (花括号隔离出来的就是一个块级作用域)
 
         if (2 > 1) {
@@ -132,7 +132,7 @@
 
 
 
-        // Destructuring 解构（结构分两大块：array的解构 和 object的解构），实际上是赋值操作，ES6的语法，让写代码方便了许多
+        // Destructuring 解构（解构分两大块：array的解构 和 object的解构），解构实际上是赋值操作，ES6的语法，让写代码方便了许多
         // var arr = [1, 2, 3];
         // let [a, b, c] = [1, 2, 3];     // 解构 就相当于一个赋值操作
         // a 就是 1 了，b 就是 2 了，c 就是 3 了
@@ -141,11 +141,12 @@
         // d 就是 undefined
 
         // var obj = {name: 'Joe', age: 10};
-        // var {name, age} = {name: 'Joe', age: 10};  // 花括号表示对object的解构  // 变量名和属性名相同时，可以简写成这样，只写一个变量名
+        // var {name, age} = {name: 'Joe', age: 10};         // 花括号表示对object的解构  // 变量名和属性名相同时，可以简写成这样，只写一个变量名
         // var {name: nameValue, age: ageValue} = {name: 'Joe', age: 10};
         // nameValue 就是 'Joe' 了，ageValue 就是 10 了
 
         // 等号两边类型必须匹配，是数组就都是数组，是 obj 就都是 obj
+
 
 
 
@@ -158,7 +159,7 @@
         // }
         // fn([1, 2]);           // 3        // array 的解构（只不过，这个array是函数的参数）
         // fn([1, 2, 3, 4, 5, 6, 7]);        // 3
-        // fn([1])          // NaN  not a number
+        // fn([1])               // NaN  not a number
 
         // let obj = {'a' : 1, 'b': 2};
         // let {'a': x, 'b': y} = obj;

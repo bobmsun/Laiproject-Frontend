@@ -1,3 +1,5 @@
+ES 6
+
 React 用的是 JSX 语法 和 ES6 语法
 
 JS vs ECMAscript 6 vs ES6
@@ -27,3 +29,200 @@ ES6 有很多新 feature ES5 不具备
 
 Standalone 模式：
 直接讲库引入到 html 文件当中
+
+
+
+
+
+
+
+
+React 1 Notes:
+
+JSX 是写 React 用的一种语法
+
+来自Google 搜索：
+What is JSX in react?
+JSX stands for JavaScript XML. JSX allows us to write HTML in React. JSX makes it easier to write and add HTML in React.
+
+FB 的工程师开发的，2013 年开源了
+
+特点一：component-based
+React 从设计思路上来讲，它认为一个网页可以被分为一块一块的，一个一个component
+就像操作系统中 folder 套 folder，所以 react 也设计为 component 套 component
+
+特点二：React 的描述性特别强
+declarative
+React 实际上就是赋予你自定义 html tag 的能力
+
+react native 是 react 的 mobile 版本
+用它提供的工具可以把 react 代码转化为 react native，然后部署在手机端
+
+react 扩充了 javascript 的语法库， 实际上是给 js 的语法创建了一个 extension
+
+
+React 的 Hello world:
+Babel 把 JSX 语法翻译成 react 的 funciton call; function 返回一个 JS object
+然后 react 后台完成在 DOM 中插入 element 的操作；
+react 在后台 contruct DOM tree，然后 浏览器把 DOM tree render 成我们看到的
+
+
+什么是 render (渲染)?
+render 把 dom tree 变成可视化的 我们可以看到的东西; render 是浏览器做的
+
+Embedding JS Expression in JSX:
+JSX 的特色：可以在 tag 中嵌入 JavaScript 的 code
+
+JSX 的本质 最后是声称了一个 object
+
+React 的优点就是让你少写 html
+
+React 的 render 有什么优势、特点？（为什么react 的 render比较快、比较好？反映的迅速，效率高？）（React 为什么在 render 这一块有优势？）
+教案中 Virtual DOM 的图非常重要！！！
+React 会在内存中 生成一个 js object, 叫做 virtual DOM
+第二次时，有一个算法进行比较 Virtual DOM v1 和 Virtual DOM v2（这个比较算法写的很好）
+
+js 之前是没有 virtual DOM 的
+
+如果没有 virtual DOM，就会全部 render 一遍，很费时间
+
+
+setInterval(tick, 1000) - 每个1000 毫秒（1s），就执行一下 tick 函数
+
+
+把上 1s 的 virtual DOM 和 这 1s 的 virtual DOM 进行比较
+
+MDN 网站 是前端的大维基百科
+
+
+React 中最基本的元件就是 component；（有点像这么一件事情：React 可以让你自定义一个 html tag ）
+
+
+functional component
+定义一个 javascript 的 function，这个 function
+take 一个 input，一般都是 返回的一个 JSX
+
+input 的名字必须是 props，这是定死的
+
+
+class component
+写一个 class 来定义 complnent
+（functional component 和 class component 的区别下节课讲）
+class component 有满足两条：
+1. 这个 class 必须继承 React.Component
+2. 必须实现 render 函数（就像上面的的 return）
+
+
+react 自定义的 component，首字母必须大写！！
+
+react 给我们两种方式来定义 component：用 function 和 用 class
+
+网页如果是动态的，一般需要用 class 来写 component
+
+react 死规定： props 是 read-only 的，是只读的；直接用就好，不要改它；不要对输入进来的参数进行 manipulate
+e.g. props.name = "Bob"
+
+
+
+
+如果 obj 是一个 js object，如果 obj 是 const 的（const obj），但是里边的内容还是可以改的
+
+
+本节课到目前为止的重点：
+1. 写 react 的一种的特殊的语法 - JSX
+2. component 是怎么 take 参数的？ - 通过 props 来 take 参数
+(React 的一个个 componet，就是一个个的 function；未来趋势：可能会 abandon class componenet)
+
+
+
+
+一个网址输入到浏览器后发生了什么？
+
+输入一个 url，回车，浏览器发送一个请求，到互联网，四处询问dns 域名解析器，dns 会给你一个 ip 地址
+在发送一个真正的请求，给真正响应你的 服务器上
+服务器会返回给你一大堆文件 和 一个 html（这个 html 中有一大堆 script 标签）
+声称一个 DOM tree （包括 css, ... 什么的，也都会加载到 DOM tree 上）
+最后render
+
+浏览器就是你电脑上的一个应用，就像游戏一样
+
+
+
+Typescript
+Typescript 的好处就是有type
+Typescript 的后缀是 ts
+Typescript 可以理解为 js 的 父亲
+在 .ts 文件里写 js 是 ok 的，但 .js 文件中写 typescript 就不行了
+
+typescript 浏览器是不懂的，typescript 是微软发明的，有一个翻译器（也是微软发明的），把typescript 翻译成 js，给浏览器
+Typescript 实际上有一个 .d.ts file, 这个 file 记录了 type；
+如果一个 js file 配上一个 对应的 .d.ts file, 其实就跟 一个 typecript file 一样了
+
+
+
+array 的 map 函数：（map 是 js 的库函数）
+take 一个参数：一个函数（这个函数返回一个东西）
+map函数 把 这个函数作用在 array 中的 每一的 item
+最后 map 函数返回一个 数组
+
+js 中的 array 都继承与 Array class, map 函数就是定义在 Array 中的
+
+
+箭头函数的简化
+const func = (a, b) => {
+    return a + b;
+}
+可简化为
+const func = (a, b) => a + b
+
+
+Before and After:
+老师没怎么见过在 JSX 中 加 comment的。但是如果一段JSX 比较长，又没有comment，岂不是很难读？
+解决办法：就像把一个大 function break 成几个小function一样，把一个大的 component break down 成几个小的 component
+
+
+能够让functional component 实现 class component 的一些 feature 的办法：hook
+
+React 读物： 
+    React 官网：reactjs.org      （官网点击 docs）
+
+ES6 也叫 ES 2015
+
+
+JSX 就可以简单地理解为：把 html 和 JS 揉在一起了，里边还可以加一些 JS 的变量 和 function call
+
+react component 的 function 如果用不到 props，function 定义中可以不写 props
+
+因为 JSX 最终就会是一个 object，所以可以把 JSX 当作函数返回值、当作函数参数、assign 给变量、...
+
+React 就是 JS 的一个库，React 就是用 js 写的
+
+React Native 也是一个库，React Native 本身不是翻译器，但他们之间肯定有一个翻译器；
+React 和 React Native 的语法肯定会有不一样，因为 web 和 mobile 的开发环境不一样
+
+Typecript 是 js 用 C# 包装了一下，给 js 加了 type
+
+下节课会讲： Life cycle, state
+
+
+
+
+
+
+
+React 2 Notes:
+
+上节课 复习：
+react 的基本元素 叫 组件；
+组件怎么传参数；
+JSX 会被 Babel 翻译，之后会 call react.createElement(); 生成一个 obj；再把这个obj 塞到 react.render() 中；
+react 在实际修改真的 DOM 之前，把 virtual DOM 进行 diff (比较)，然后才会修改实际的 DOM；然后再把 DOM 进行呈现
+
+JSX 语法需要 Babel 翻译一下；JSX 要被 Babel 过一遍，这个代码才是能够被用的代码，但翻译这个过程并不发生在运行的时间，所以翻译所占的时间并不影响用户
+
+我们先开发、测试...，然后打包，然后再翻译，翻译完后在把 cook（烹饪）好的代码丢（部署）到服务器上；用户拿到服务器上的代码再运行
+
+componenet 有两种的定义方式：function, class
+
+本节课：
+
