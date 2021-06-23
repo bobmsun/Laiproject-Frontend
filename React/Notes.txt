@@ -210,13 +210,16 @@ Typecript 是 js 用 C# 包装了一下，给 js 加了 type
 
 
 
+
+
+
 React 2 Notes:
 
 上节课 复习：
 react 的基本元素 叫 组件；
 组件怎么传参数；
 JSX 会被 Babel 翻译，之后会 call react.createElement(); 生成一个 obj；再把这个obj 塞到 react.render() 中；
-react 在实际修改真的 DOM 之前，把 virtual DOM 进行 diff (比较)，然后才会修改实际的 DOM；然后再把 DOM 进行呈现
+react 在实际修改真的 DOM 之前，先生成一个virtual DOM，把 virtual DOM 进行 diff (比较)，然后才会修改真正的 DOM；然后再把 DOM 进行呈现
 
 JSX 语法需要 Babel 翻译一下；JSX 要被 Babel 过一遍，这个代码才是能够被用的代码，但翻译这个过程并不发生在运行的时间，所以翻译所占的时间并不影响用户
 
@@ -224,5 +227,85 @@ JSX 语法需要 Babel 翻译一下；JSX 要被 Babel 过一遍，这个代码�
 
 componenet 有两种的定义方式：function, class
 
-本节课：
+本节课：主要讲 state；event 就是带一下，之后再主要讲
+
+
+老一点的 React 版本：function 是没办法接触到 state 的
+所以我们就需要 把 function component 变成 class component;
+但是 新版本的 React 引入了 hook，让 function access state
+
+之前的例子不好的原因：因为要一遍又一遍的 call React.render 函数 去 render
+
+React 的 component 有一个规定：component 的首字母必须大写
+
+理解 class component 中的 constructor
+constructor 是一个特殊的函数，它一定会在 object 被create 时 被调用
+constructor 中 必须要有这一行： super（props）   这一行是在 调用被我继承的那个 class 的 constructor
+
+state 是在 constructor 中被创建的
+state的初始化一定要放在 constructor 函数中
+state 是属于 class 的
+
+
+state 可以改，但必须按 React 规定的方式改，用 React 的函数 (setState) 改 state
+
+state 不会自动更新，需要人为更新
+
+props vs state:
+props 进来后就是不变的；
+而 state 是跟着这个 class 出生入死，还会不断变化；这样的变量就交给 state
+
+class component 本质就是 javascript class
+
+用 setStaete 来跟新状态， 这个函数是 React.Component 提供的
+state 更新后 (状态更新后)，react 就会调用一下 class 的 render() 函数，生成新的 virtual DOM 和 之前的进行比较
+
+注意：class 中的 render() 和 React.render() 不是一回事！！！
+
+箭头函数最大的特点：没有名字；适用场景：就在这里用，有没有名字无所谓， 例如 sort 时用的比较器
+
+例子中的 this.timeID 是自己生成的一个变量，不是继承来的
+
+在 React 的设计中，默认的、不成文的规定：
+React 中，React.render 应该从头到尾只 call 一次；剩下的动态的改变应该发生在一个个 component 中
+
+componentDidMount， componentWillUnmount  是其中两个生命周期函数
+我们自己不call， 是 React 的 source code 去 call
+这两个函数在一次生命周期中只 run 一次
+
+
+state一旦发生变化了，React 会去找 class 中的 render() 函数
+
+props 是组件之间传递信息的，state 是组件自己管理的
+state 一定是自己维护的；A 的state 也可以作为 props 向下传递到其他组件 B
+这是如果 A 的 state 变化了，那么 传给 B 的 props 变化了（B 的 props 变化了），也会 trigger B 去 run 它的 render 函数
+
+
+JQuery 是一个库
+React 的下载量远超过 Angular, Vue, JQuery
+Angular 是 Google 一个人写的
+
+
+只能用 setState 函数来更新 state；只有初始化时 在 constructor 中可以 用 = 赋值 state
+
+mount / unmoint 是从 React.componenet 继承来的
+
+
+提问：class 中的 render 函数什么时候会 run？
+答案：最开始，state 被更新的时候
+
+
+setState 函数被 call 的次数，决定了 class 的 render 被 call 多少次
+
+
+State Updates are Merged
+如果是之前有的 state，那么就覆盖原来的，更新；如果是之前没有的，就 merge 进 state
+
+
+
+
+
+
+
+React 3: Practice toDo App
 
