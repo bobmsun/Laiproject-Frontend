@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Title</title>
+   <script src="//cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.min.js"></script>
+   <script src="//cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.0.0-beta.3/babel.min.js"></script>
+
+   <style>
+       .box {
+           width: 100px;
+           height: 100px;
+           background-color: #23b6ff;
+       }
+   </style>
+</head>
+<body>
+
+    <!-- 想展示 原生JS vs React 的区别：信号量思维 vs MVVM model -->
+
+    <div id="root"></div>
+
+    <button class="btn">click me</button>
+    <div class="box"></div>
+    <script>
+        let oBox = document.getElementsByClassName('box')[0],
+            btn = document.getElementsByClassName('btn')[0];
+        let value = 100;
+        btn.addEventListener('click', function(){
+            value += 10;
+            console.log(value);
+
+            // 这里我们手动的将数据与view关联，人工的将数据和 DOM 进行关联；  semaphome；React 中就不需要来，react 让开发者更关注于数据了 
+            oBox.style.width = value + 'px';
+            oBox.style.height = value + 'px';
+        })
+    </script>
+
+
+   <script type="text/babel">
+       // React Component
+       class App extends React.Component {
+           // 弄一个 constructor 用来初始化 state
+           // constructor 中必须有 super；render 是 组件中必须有的
+           constructor() {
+               super();
+
+               // how to define states
+               this.state = {
+                   a: 20,
+
+               }
+           }
+
+           // render 函数必须返回一个 JSX 语法
+           render() {
+               return (
+                   <div>
+                        { /* 原生JS 中是 onclick，而这里是 onClick；这个 onClick 是被 React 包装过的事件，onChange 也是被 React 包装过的；React 的事件都是 on + 首字母大写 */ }
+                        <button onClick={
+                            () => {
+                                // this.setState({
+                                //     a: this.state.a + 10             // 通过修改状态的只来改变 font-size
+                                // })
+                                // 这种方法（直接修改state）有缺陷，不是每种场合都能用的；但这里可以用
+
+                                // 下面这种方法等价于上一种方式
+                                this.setState(preState => {
+                                    return {
+                                        a: preState.a + 10
+                                    }
+                                })
+                            }
+                            
+                        }>click me</button>
+                        <p style={{
+                            "fontSize": this.state.a
+                        }}>Hello React</p>
+                   </div>
+               )
+           }
+       }
+
+       // ReactDOM
+       // render 函数接受两个参数: 组件 + 挂在点
+       // 有一个跟组件，其他组件作为自组件在跟组件下；所以是一个树的结构（后边data 传递时还会继续讲）
+       ReactDOM.render(
+           <App />,
+           document.getElementById("root")
+       )
+
+   </script>
+</body>
+</html>

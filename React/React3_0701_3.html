@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Title</title>
+   <script src="//cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.min.js"></script>
+   <script src="//cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.0.0-beta.3/babel.min.js"></script>
+
+   <style>
+       .box {
+           width: 100px;
+           height: 100px;
+           background-color: #23b6ff;
+       }
+   </style>
+</head>
+<body>
+
+    <div id="root"></div>
+
+   <script type="text/babel">
+        // 非受控组件    (这种方法 React 官方已经不推荐了，deprecate 了)
+
+        class App extends React.Component {
+            constructor() {
+                super();
+            }
+
+            render() {
+                return (
+                    <div>
+                        <input type="text" value="hello" ref="myRef" />
+
+                        <h1 ref="hRef">this is h1</h1>
+                        <button onClick={
+                            () => {
+                                // get ref
+                                console.log(this.refs)     // this.refs 是一个对象，可以那所有 ref；但这种方法 React 16 之后就不再使用了
+                            }
+                        }>click me</button>
+                    </div>
+                    
+                )
+            }
+
+        }
+
+        ReactDOM.render (
+                <App />,
+                document.getElementById("root")
+        )
+   </script>
+</body>
+</html>

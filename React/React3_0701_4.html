@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Title</title>
+   <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+   <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+
+   <style>
+       .box {
+           width: 100px;
+           height: 100px;
+           background-color: #23b6ff;
+       }
+   </style>
+</head>
+<body>
+
+    <div id="root"></div>
+
+   <script type="text/babel">
+        // 非受控组件 (React 16 版本 及 以上 推荐的)
+
+        class App extends React.Component {
+            constructor() {
+                super();
+
+                // define a ref
+                this.myH2 = React.createRef();     // ref 必须是唯一的，ref 相当于 JS 中的 id；ref 本质就是一个 id
+            }
+
+            render() {
+                return (
+                    <div>
+                        <p ref={this.myH2} id="haha">hello</p>
+
+                        <button onClick={
+                            () => {
+                                // use ref
+                                console.log(this.myH2.current);
+                            }
+                        }>click me</button>
+
+
+                        <p ref={
+                            (item) => {
+                                console.log(item);
+                            }
+                        }>this is p</p>              {/* 一上来就会执行 */}
+
+
+                        { /* 受控组件 */ }
+                        <input type="text" value="hello" ref="myRef" onChange={(e) => {console.log(e.target.value)}} />
+
+
+                        { /* 非受控组件 */ }
+                        <button onClick={
+                            () => {
+                                console.log(this.refs.myRef.value);
+                            }
+                        }>Click me</button>
+
+                    </div>
+                    
+                )
+            }
+
+        }
+
+        ReactDOM.render (
+                <App />,
+                document.getElementById("root")
+        )
+   </script>
+</body>
+</html>

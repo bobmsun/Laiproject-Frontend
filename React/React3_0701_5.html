@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Title</title>
+   <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+   <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+
+</head>
+<body>
+
+    <div id="root"></div>
+
+   <script type="text/babel">
+        class Parent extends React.Component {
+            constructor() {
+                super();
+                this.state = {
+                    a: 10
+                }
+                this.changeResHandler = this.changeResHandler.bind(this)
+            }
+
+            render() {
+                return (
+                    <div>
+                            <h2>This is Parent Component</h2>
+                            <p>my a is {this.state.a}</p>
+
+                            <hr />
+                            <Child res={this.state.a} changeRes={this.changeResHandler}/>          {/* 把父组件的数据 传给 自组件*/}
+                            
+                            {/* 也可以这样写 <Child res={this.state.a} changeRes={this.changeResHandler.bind(this)}/> */}
+
+                            
+                    </div>
+                )
+            }
+
+            changeResHandler(res) {
+                console.log("c -> p", res)
+                this.setState({
+                    a: res
+                })
+            }
+        }
+
+
+        class Child extends React.Component {
+
+            render() {
+                return (
+                    <div>
+                        <h2>This is Child Component</h2>
+
+                        <p>This is num from Parent: {this.props.res}</p>        {/* 子组件接受父组件 传来的值 */}
+
+                        <button onClick = {
+                            () => {
+                                // change parent state
+                                this.props.changeRes(100)
+                            }
+                        }>Click me to change Parent</button>
+
+                    </div>
+                )
+            }
+        }
+
+
+        ReactDOM.render(
+            <Parent />,
+            document.getElementById("root")
+        )
+   </script>
+
+</body>
+</html>

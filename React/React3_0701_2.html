@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Title</title>
+   <script src="//cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.min.js"></script>
+   <script src="//cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.0.0-beta.3/babel.min.js"></script>
+
+   <style>
+       .box {
+           width: 100px;
+           height: 100px;
+           background-color: #23b6ff;
+       }
+   </style>
+</head>
+<body>
+
+    <div id="root"></div>
+
+   <script type="text/babel">
+
+        // 受控组件
+
+       class App extends React.Component {
+           constructor() {
+               super();
+               this.state = {
+                   a: "haha",
+                   b: "haha"
+               }
+           }
+
+           render() {
+               return (
+                   <div>
+                        <h1>{ this.state.a }</h1>
+
+                        <input type="text" value={this.state.a} onChange={(event) => {
+                            console.log(event.target.value);
+                            this.setState({
+                                a: event.target.value
+                            })
+                        }}/>
+
+
+                        <h1>{ this.state.b }</h1>
+
+                        <input type="checkbox" checked onChange={(event) => {
+                            console.log(event.target.value);
+                            this.setState({
+                                b: event.target.value
+                            })
+                        }}/>
+                   </div>
+               )
+           }
+       }
+
+       ReactDOM.render(
+           <App />,
+           document.getElementById('root')
+       )
+
+   </script>
+</body>
+</html>
