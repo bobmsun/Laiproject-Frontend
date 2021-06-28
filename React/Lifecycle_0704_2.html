@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script type="text/babel">
+        class App extends React.Component {
+            constructor () {
+                super();
+                this.state = {
+                    a: 100,
+                    isShow: false
+                }
+            }
+
+            render() {
+                return (
+                    <div>
+                        <h2>this is Parent Component</h2>
+                        <p>my num is {this.state.a}</p>
+                        <div>
+                            <button onClick={
+                                () => {
+                                    this.setState({
+                                        isShow: !this.state.isShow
+                                    })
+                                }
+                            }>click me to show / hide Child Component</button>
+                        </div>
+
+                        <div>
+                            <button onClick={
+                                () => {
+                                    this.setState({
+                                        a: this.state.a + 10
+                                    })
+                                }
+                            }>click + 10</button>
+                        </div>
+
+                        <hr />
+                        {
+                            this.state.isShow ? <Child num={this.state.a}/> : null
+                        }
+                    </div>
+                )
+            }
+        }
+
+        class Child extends React.Component {
+            constructor() {
+                super();
+                console.log("1. constructor");
+                // this.fn = this.fn.bind(this);
+                this.state = {
+                    data: 888
+                }
+            }
+
+            render() {
+                console.log("3. render");
+                return (
+                    <div>
+                        <h2>this is Child Component</h2>
+                        <p>The number from Parent is { this.props.num } </p>
+                        <p>My data is { this.state.data }</p>
+                    </div>
+                )
+            }
+
+            static getDerivedStateFromProps(nextProps, preState) {      // 可以拿到：当前的 props，之前的 state
+                console.log("2. getDerivedStateFromProps")
+                console.log("2. nextProps -> ", nextProps)
+                console.log("2. preState -> ", preState)
+
+                if (nextProps.num === 120) {
+                    return {
+                        data: 130
+                    }
+                }
+            }
+
+            // 如果是 comment 掉 shouldComponentUpdate，会在 nextProps.num === 120 时，显示 data 为 130，因为上面函数 返回了 {data:130}
+            shouldComponentUpdate(nextProps, nextState) {       // 可以通过这个函数来决定 render 是否被执行
+                console.log('2.5 nextProps -> ', nextProps)
+                console.log('2.5 nextState -> ', nextState)
+
+                if (nextProps.num === nextState.data) {
+                    return false;
+                }
+                return true
+            }
+            // 没有 shouldComponentUpdate 会默认 render，如果有了这个函数，但没有返回值，默认返回 false
+
+            componentDidMount() {
+                console.log("4. didMount");
+            }
+        }
+
+        ReactDOM.render(
+            <App />,
+            document.getElementById("app")
+        )
+    </script>
+    
+</body>
+</html>

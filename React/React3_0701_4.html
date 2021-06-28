@@ -28,17 +28,21 @@
 
                 // define a ref
                 this.myH2 = React.createRef();     // ref 必须是唯一的，ref 相当于 JS 中的 id；ref 本质就是一个 id
+                // this.myH3 = React.createRef(); 
             }
 
             render() {
                 return (
                     <div>
                         <p ref={this.myH2} id="haha">hello</p>
+                        {/*<p ref={this.myH3} id="sdgagsa">hello</p>*/}
 
                         <button onClick={
                             () => {
                                 // use ref
-                                console.log(this.myH2.current);
+                                // console.log(this.myH2)
+                                console.log(this.myH3.current);
+                                // console.log(typeof this.myH2.current);         // object
                             }
                         }>click me</button>
 

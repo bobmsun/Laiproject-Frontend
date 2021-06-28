@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Todo item update</title>
+    <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+    <!-- 以上三个script导入：把 React, React DOM, 和 Bable 引入进来 -->
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // Header component 
+        class TodoHD extends React.Component {
+            // 如果想用 state，在没讲 hook 之前，只能用 class
+
+            constructor() {
+                super();
+                this.input = React.createRef();            // createRef 16 才能用, 15 用不了
+            }
+            render() {
+                return (
+                    // render 中要 return 一个 JSX 语法
+                    <div>
+                        <input type="text" ref={this.input}/>         {/* 提到非受控组件，就应该想到 ref*/}
+                        <button onClick={
+                            () => {
+                                // console.log(this.input.current.value);
+                                this.props.addTodo(this.input.current.value);
+                            }
+                        }>add new task</button>
+                    </div>
+                )
+            }
+        }
+
+        // Body component 
+        class TodoBD extends React.Component {
+            render() {
+                const { todoList } = this.props;           // 解构; 然后需遍历，对每一个对象create 一个 item
+
+                // map 是 ES6 的一个内置函数
+                // [1, 2, 3].map((item, index) => ({console.log(item); console.log(index);}))
+                return (
+                    <div>
+                        {
+                            todoList.map(item => {
+                                return <TodoItem key={item.id}                  // TodoItem 是 body 的子组件； 用组件时，相当于组件的实例化; 
+                                                 data={item}                 // key 不是给 DOM 用的，是给 React 加快比较算法用的；真实情况下，不加key 会有 warning；
+                                                 deleteHelper={this.props.deleteItem}          // key 在 DOM 下看不见，但在 react component 下看得见
+                                                 updateHelper={this.props.updateItem}/>          
+                            })
+                                                                                     
+                        }
+                    </div>
+                )
+            }
+        }
+
+        // TodoItem Component
+        class TodoItem extends React.Component {
+            render() {
+                const { data } = this.props;
+                // console.log(data);
+                return (
+                    <div>
+                        <input type="checkbox" checked={data.done} onChange={ () => {
+                            this.props.updateHelper(data.id, !data.done);
+                        }}/>
+                        <span>{data.title}</span>
+                        <button onClick={
+                            () => {
+                                // what to delete? data.id
+                                this.props.deleteHelper(data.id)
+                            }
+                        }>delete</button>
+                    </div>
+                )
+            }
+        }
+
+        // Footer component
+        class TodoFT extends React.Component {
+            render() {
+                return (
+                    <div>
+                        <button>show all ({this.props.todoList.length})</button>
+                        <button>show done ({this.props.todoList.filter(item => item.done).length})</button>
+                        <button>show not done ({this.props.todoList.filter(item => !item.done).length})</button>
+                    </div>
+                )
+            }
+        }
+
+        class App extends React.Component {
+            // 因为所有的 item / task 又放在 App 跟组件下，所以 App 要有constructor 和 state
+            constructor(props) {
+                super(props)
+                this.state = {
+                     todos: [
+                         { id: 1, title: 'task1', done: false },
+                         { id: 2, title: 'task2', done: false },
+                         { id: 3, title: 'task3', done: true },
+                         { id: 4, title: 'task4', done: false },
+                         { id: 5, title: 'task5', done: true },
+                         { id: 6, title: 'task6', done: false }
+                     ],
+                     type: 0           // 0 - all, 1 - done, 2 - not done
+                }
+            }
+
+            render() {
+                // 肯定会有一个 标签 把三个部分包裹起来
+                return (
+                    <div>
+                        <TodoHD addTodo={this.addItem.bind(this)}/>
+                        <TodoBD todoList={this.state.todos}                            // {/* 父组件向子组件传值 */}      
+                                deleteItem={this.deleteItem.bind(this)}
+                                updateItem={this.updateItem.bind(this)}
+                        />           
+                        <TodoFT todoList={this.state.todos}
+                                type={this.state.type}
+                        />
+                    </div>
+                )
+            }
+
+            updateItem(id, status) {
+                console.log('app -> id', id, 'app status -> ', status);
+                this.setState({
+                    todos: this.state.todos.map(
+                        item => item.id === id
+                            ? {...item, done: status}        // 把 item 下所有出了 done 的属性全部 copy 出来，把 done 改为 status
+                            : item
+                    )
+                })
+            }
+
+            deleteItem(id) {
+                console.log('app ->', id);
+                // remove data from state.todos
+                // 删除的时候用 map；删除的时候用 filter
+                this.setState({
+                    todos: this.state.todos.filter(
+                        item => item.id !== id
+                    )
+                })
+            }
+
+            // addItem = () => {} 如果这样就不用 bind 了
+
+            addItem(item) {
+                console.log("app -> ", item);
+                this.setState({
+                    todos: [
+                        ...this.state.todos,       // ... 表示把 全部copy 过来
+                        {
+                            id: Math.floor(Math.random() * 100),
+                            title: item,
+                            done: false
+                        }
+                    ]
+                })
+            }
+            
+        }
+
+
+        // ReactDOM.render() 实现虚拟 DOM 与真是 DOM 的结合，虚拟DOM 就是 <App />
+        ReactDOM.render(
+            <App />,
+            document.getElementById("root")        // 挂载点
+        )
+    </script>
+</body>
+
+</html>

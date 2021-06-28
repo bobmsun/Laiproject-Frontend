@@ -29,7 +29,7 @@
                             <p>my a is {this.state.a}</p>
 
                             <hr />
-                            <Child res={this.state.a} changeRes={this.changeResHandler}/>          {/* 把父组件的数据 传给 自组件*/}
+                            <Child res={this.state.a} changeRes={this.changeResHandler}/>          {/* 把父组件的数据 传给 子组件*/}
                             
                             {/* 也可以这样写 <Child res={this.state.a} changeRes={this.changeResHandler.bind(this)}/> */}
 
@@ -39,7 +39,7 @@
             }
 
             changeResHandler(res) {
-                console.log("c -> p", res)
+                console.log("child -> parent", res)
                 this.setState({
                     a: res
                 })
@@ -54,7 +54,7 @@
                     <div>
                         <h2>This is Child Component</h2>
 
-                        <p>This is num from Parent: {this.props.res}</p>        {/* 子组件接受父组件 传来的值 */}
+                        <p>This is num from Parent (a): {this.props.res}</p>        {/* 子组件接受父组件 传来的值 */}
 
                         <button onClick = {
                             () => {

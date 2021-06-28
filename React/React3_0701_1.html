@@ -67,6 +67,8 @@
 
                                 // 下面这种方法等价于上一种方式
                                 this.setState(preState => {
+                                    // console.log(preState)
+                                    // console.log(typeof preState)      // object
                                     return {
                                         a: preState.a + 10
                                     }
@@ -75,7 +77,7 @@
                             
                         }>click me</button>
                         <p style={{
-                            "fontSize": this.state.a
+                            "fontSize": this.state.a           // 注意：这里不是 font-size，而是 fontSize：所有 css 中的 dash 部分都要去掉，然后 首字母大写
                         }}>Hello React</p>
                    </div>
                )
