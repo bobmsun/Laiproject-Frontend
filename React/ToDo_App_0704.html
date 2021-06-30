@@ -26,7 +26,7 @@
                 return (
                     // render 中要 return 一个 JSX 语法
                     <div>
-                        <input type="text" ref={this.input}/>         {/* 提到非受控组件，就应该想到 ref*/}
+                        <input type="text" ref={this.input}/>         {/* 提到非受控组件，就应该想到 ref */}
                         <button onClick={
                             () => {
                                 // console.log(this.input.current.value);
@@ -50,11 +50,11 @@
                         {
                             todoList.map(item => {
                                 return <TodoItem key={item.id}                  // TodoItem 是 body 的子组件； 用组件时，相当于组件的实例化; 
-                                                 data={item}                 // key 不是给 DOM 用的，是给 React 加快比较算法用的；真实情况下，不加key 会有 warning；
-                                                 deleteHelper={this.props.deleteItem}          // key 在 DOM 下看不见，但在 react component 下看得见
+                                                 data={item}                 // key 不是给 DOM 用的，是给 React 加快比较算法用的；真实情况下，不加key 会有 warning；现在没有 warning 是因为我们在 standalone 模式下
+                                                 deleteHelper={this.props.deleteItem}          // key 在 DOM 下看不见，但在 react component 下才能看得见
                                                  updateHelper={this.props.updateItem}/>          
                             })
-                                                                                     
+                            // [<p>haha1</p>, <p>haha2</p>, <p>haha3</p>, <p>haha4</p>]                                                         
                         }
                     </div>
                 )
@@ -134,7 +134,7 @@
                 this.setState({
                     todos: this.state.todos.map(
                         item => item.id === id
-                            ? {...item, done: status}        // 把 item 下所有出了 done 的属性全部 copy 出来，把 done 改为 status
+                            ? {...item, done: status}        // 把 item 下所有除了 done 的属性全部 copy 出来，把 done 改为 status
                             : item
                     )
                 })
@@ -151,7 +151,7 @@
                 })
             }
 
-            // addItem = () => {} 如果这样就不用 bind 了
+            // 如果定义箭头函数，例如，addItem = () => {} ，就不用 bind 了
 
             addItem(item) {
                 console.log("app -> ", item);
@@ -170,7 +170,7 @@
         }
 
 
-        // ReactDOM.render() 实现虚拟 DOM 与真是 DOM 的结合，虚拟DOM 就是 <App />
+        // ReactDOM.render() 实现虚拟 DOM 与真实 DOM 的结合，虚拟DOM 就是 <App />
         ReactDOM.render(
             <App />,
             document.getElementById("root")        // 挂载点

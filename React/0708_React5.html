@@ -55,6 +55,7 @@
         }
 
         class Child extends React.Component {
+            // constructor 可有可无
             constructor() {
                 super();
                 console.log("1. constructor");
@@ -75,17 +76,18 @@
                 )
             }
 
+            // 这个函数不常用
             static getDerivedStateFromProps(nextProps, preState) {      // 可以拿到：当前的 props，之前的 state
                 console.log("static -> ", this)               // 会print undefined，这个函数没有 this 指针
                 console.log("2. getDerivedStateFromProps")
                 console.log("2. nextProps -> ", nextProps)
                 console.log("2. preState -> ", preState)
 
-                if (nextProps.num === 120) {
-                    return {
-                        data: 130
-                    }
-                }
+                // if (nextProps.num === 120) {
+                //     return {
+                //         data: 130
+                //     }
+                // }
             }
 
             // 如果是 comment 掉 shouldComponentUpdate，会在 nextProps.num === 120 时，显示 data 为 130，因为上面函数 返回了 {data:130}
@@ -93,15 +95,52 @@
                 console.log('2.5 nextProps -> ', nextProps)
                 console.log('2.5 nextState -> ', nextState)
 
-                if (nextProps.num === nextState.data) {
-                    return false;
-                }
+                // if (nextProps.num === nextState.data) {
+                //     return false;
+                // }
                 return true
             }
             // 没有 shouldComponentUpdate 会默认 render，如果有了这个函数，但没有返回值，默认返回 false
 
+            getSnapshotBeforeUpdate(preProps, preState) {
+                console.log("3. getSnapshotBeforeUpdate")
+                console.log('3.5 preProps -> ', preProps)
+                console.log('3.5 preState -> ', preState)
+
+                return {
+                    "name": "Joe",
+                    "age": 10}
+            }
+
+            componentDidUpdate(preProps, preState, snapshot) {
+                console.log("4 componentDidUpdate");
+                console.log('4 preProps -> ', preProps)
+                console.log('4 preState -> ', preState)
+                console.log('4 snapshot -> ', snapshot)
+
+                console.log('current props: ', this.props)
+
+                if (preProps.num === 120) {
+                    // 这里调用 setState，就会又去 render; 所以 componentDidUpdate 中用 setState 要格外小心，不要造成死循环
+                    this.setState({
+                        data: snapshot.name
+                    })
+                }
+            }
+
+            // 拿数据（和后端的操作）、对 DOM 的操作（因为已经 render 完了，所以可以拿到 DOM 元素） 通常在 componentDidMount 进行
             componentDidMount() {
                 console.log("4. didMount");
+
+                // 以下为了证明：Mounting 阶段调用 setState 立刻就进入了 updating 阶段
+                this.setState({
+                    data: "haha"
+                })
+            }
+
+            // componentWillUnmount 通常做一些清理工作，例如跟 server 的断接，timer清零，GC，...
+            componentWillUnmount() {
+                console.log("5 Unmount")
             }
         }
 

@@ -429,38 +429,67 @@ React 中实现数据和 view 的自动更新，是 MVVM model，是通过 life 
 
 
 数据通信 data communication: 子 -> 父；父 -> 子；跨级操作
-React 中入的 绑定事件： onChange, onClick
+React 中的 事件绑定： onChange, onClick
 Controlled and uncontrolled component
 
 
-组件生命周期：基于 React 16 来讲的，15 以前有一些已经不用了
+组件生命周期：我们的课程中的组件生命周期是基于 React 16 来讲的，15 以前有一些已经不用了
 
 生命周期 （3 个）
 mounting 创建 （上树）
 updating 更新  
 unmounting 消亡 （下树）
-每个生命周期会有很多函数 -》 组件的生命周期函数（一共 8 个）：会在对应的阶段被 React 调用执行，有 react点用
+每个生命周期会有很多函数 -> 组件的生命周期函数（一共 8 个）：会在对应的阶段被 React 调用执行，由 React 调用，我们自己不调用
 
 上树阶段 第一个 被执行的生命周期函数： constructor
-constructor 中一般进行出事花操作：
+constructor 中一般进行初始化操作：
 例如，bind function，提取 props
-一般不会 setState，向server 断提取数据
+一般不会 setState，也一般不会向 server端 提取数据
 
-getDerivedStateFromProps:上树阶段第二个被执行的,在上树阶段第二个被执行，也会在更新阶段被执行
+getDerivedStateFromProps:上树阶段第二个被执行的，在上树阶段第二个被执行，也会在更新阶段被执行
 
 reneder： return 一个 需要被渲染的虚拟 DOM
-render 不能 setstate ，否则会死循环
+render 函数中不能 setState ，否则会死循环
 
 didmount, 第四个，didmount 在 render 之后，didmount 执行完后 上树阶段就结束了，
 一般做：
 向后端获取数据；
-对 dom 节点进行操作，因为 didmount 只在 render 之后；
-如果 didmount 中有 setstae，会导致重新 render，re-render，进入 更新 阶段
+对 DOM 节点进行操作，因为 didmount 只在 render 之后；
+如果 didmount 中有 setState，会导致重新 render，re-render，进入 更新 阶段
 
 
-组件生命周期有3个阶段，有组件的生命周期函数组成，总过有 8 个生命周起函数
+组件生命周期有3个阶段，由组件的生命周期函数组成，总过有 8 个生命周期函数
 有两个函数，跨越两个阶段： getDerivedStateFromProps 和 render
 
 
 update 阶段
-接受了新的 props，setState，和 forceUpdate 会 trigger update 阶段
+接受了新的 props，setState，和 forceUpdate 这三种情况会 trigger update 阶段
+
+
+
+
+
+
+
+
+
+
+
+
+0708_React5:
+
+本节课
+把 Lifecycle 讲完，然后讲 Modules，然后 把 project setup 一下
+
+
+componentDidUpdate 与 componentDidMount 最大的区别是：它们所处的 生命周期 不同
+componentDidMount 只会执行一次，在上树阶段，上树结束后就不会执行了
+componentDidUpdate 可以被执行多次
+
+对于一个class，哪一个生命周期函数是必须有的？
+render
+
+
+下面讲：Module
+
+
